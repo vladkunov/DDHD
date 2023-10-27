@@ -1,4 +1,23 @@
+[ENG]
+
+How diplomacy and war work:
+
+Each foreign country has 4 statuses:
+
+- State (war or peace or occupation)
+- Diplomatic Capital (influence)
+- Number of provocations / 3
+      - War is possible if there are three or more of them
+- Economy
+      - Depending on the specifics of the country, it is added to the Army every year.
+
+- Hidden: Army
+      - If a resource is depleted, the country is occupied by the one it is at war with
+      - These statistics can only be obtained in special cases.
+
 Как работает дипломатия и война:
+
+[RUS]
 
 Каждая чужая страна имеет 4 стата:
 
@@ -12,14 +31,3 @@
 - Скрытый: Армия
     - Если ресурс истощается, страна оккупируется той, с которой воюет
     - Этот стат можно только узнать в специальных ивентах
-
-ЧТО В "БОКОВОМ" (ЖЕЛТОМ) ТЕКСТЕ?
-
-- Общая инфа: как обстоит что, какие страны
-- Легенда (ex. как обозначена оккупация)
-- Возможность выйти
-
-КАК БУДЕМ РИСОВАТЬ КАРТУ:
-
-- В эстетических целях, карта не должна быть четко прямоугольной
-- Карта будет 
