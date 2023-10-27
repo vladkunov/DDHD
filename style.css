@@ -106,11 +106,16 @@ button.character {
   padding-left: 1vmax;
   /* margin-left: -0.5vmax; */
   line-height: 2vmax;
-  border-style: solid;
   padding-top: 0.5vmax;
   padding-bottom: 0.5vmax;
-  border: 0;
+  border-style: hidden;
   color: var(--highlight-two);
+  outline: none;
+  box-shadow: none;
+}
+
+button.character:empty {
+  padding: 0;
 }
 
 .buttonsContainer {
