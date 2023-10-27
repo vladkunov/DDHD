@@ -83,12 +83,12 @@ let loc = {
     question : {
        exampleOne: {
             characters: [`richard`],
-            baseChnc: [0.05],
+            baseChnc: [0.5],
             decksNeed: [`example`],
-            decksPlusChnc: [`2xChance`, 1],
+            decksPlusChnc: [`plus05Chance`, 0.5],
             decksRemove: [`example1NotDoneYet`],
             decksAdd: [],
-            timePassedPlus: -1,
+            timePassedPlus: 1,
             eng: {
                 text: "Hello! I am an example question which will appear only once.",
                 answers: {
@@ -133,7 +133,7 @@ let loc = {
         },
         exampleTwo: {
             characters: [`ofleet`, `richard`],
-            baseChnc: [0.15],
+            baseChnc: [0.01],
             decksNeed: [`example`],
             decksPlusChnc: [],
             eng: {
@@ -150,10 +150,16 @@ let loc = {
                 2: "Не ок",
                 },
             },
+            1: {
+
+            },
+            2: {
+
+            },
         },
         exampleThree: {
             characters: [`richard`],
-            baseChnc: [0.15],
+            baseChnc: [0.01],
             decksNeed: [`example`],
             decksPlusChnc: [],
             eng: {
@@ -172,10 +178,19 @@ let loc = {
                 3: `Эпично`
                 },
             },
+            1: {
+
+            },
+            2: {
+
+            },
+            3: {
+
+            },
         },
         welcome: {
             characters: [`richard`],
-            baseChnc: [0.15],
+            baseChnc: [1],
             decksNeed: [`welcome`],
             decksPlusChnc: [],
             eng: {
@@ -189,6 +204,9 @@ let loc = {
                 answers: {
                 1: "Продолжить...",
                 },
+            },
+            1: {
+
             },
         },
     },
@@ -795,7 +813,7 @@ let initializeFromDefaultLocalStorage = function() {
     u(`currentQuestion`, `welcome`)
 
     //decks in action
-    uArray(`decks`, [`example`, `example1NotDoneYet`, `removed1`, `removed2`]);
+    uArray(`decks`, [`example`, `example1NotDoneYet`, `removed1`, `removed2`, `plus05Chance`]);
 };
 
 // ================================
@@ -1170,12 +1188,11 @@ if (page === `game`) {
 const rollForNewQuestion = function () {
     // Collect array with all questions
     const arrayAllQuestions = Object.keys(loc.question);
-    // iterate all questions
+    // Iterate all questions
     for (let i = 0; i < 999; i++) {
         // Roll random to choose one
         let randomIndex = Math.floor(Math.random() * arrayAllQuestions.length)
         let randomQuestion = arrayAllQuestions[randomIndex];
-        let chance = loc.question[randomQuestion].baseChnc;
         const randomQuestionDecksNeedArray = loc.question[randomQuestion].decksNeed;
         const randomQuestionDecksPlusArray = loc.question[randomQuestion].decksPlusChnc;
         // Check if question has prerequisite decks
@@ -1191,7 +1208,30 @@ const rollForNewQuestion = function () {
                 };
             };
         };
-        if (checkMarks >= filteredDecksNeed.length) {
+        // Chance calculation
+        // First, get base chance, then add chance from decksPlusChance
+        let chance = loc.question[randomQuestion].baseChnc[0];
+        const filteredDecksChnc = loc.question[randomQuestion].decksPlusChnc.filter(function(item) {
+            return typeof item !== "number";
+        });
+        for (let i = 0; i < filteredDecksChnc.length; i++) {
+            for (let iS = 0; iS < decks.length; iS++) {
+                if (filteredDecksChnc[i] === decks[iS]) {
+                    const indexOfNum = i * 2 + 1;
+                    if (typeof loc.question[randomQuestion].decksPlusChnc[indexOfNum] == `number`) {
+                        chance = chance + loc.question[randomQuestion].decksPlusChnc[indexOfNum];
+                    };
+                };
+            };
+        };
+        console.log(chance);
+        // Does is pass?
+        let chanceCheckPassed = 0;
+        if (Math.random() <= chance) {
+            chanceCheckPassed = 1;  
+        };
+        // Has question been selected? Needed decks and chanceCheckPassed
+        if (checkMarks >= filteredDecksNeed.length && chanceCheckPassed) {
             const charactersOk = loc.question[randomQuestion].characters;
             const randomCharIndex = Math.floor(Math.random() * charactersOk.length);
             // Check that question isn't repeating
@@ -1226,7 +1266,6 @@ const rollForNewQuestion = function () {
                     };
                     uArray(`decks`, decksNew)
                 };
-            // TODO: Apply multipliers
             // Finally! return chosen question + its char
             return [randomQuestion, charactersOk[randomCharIndex]];
             };
@@ -1268,23 +1307,38 @@ const decksAddRemoveOnClick = function (questionDotClicked) {
 
 // React to click 
 if (page === `game`) {
-    document.addEventListener(`mousedown`, function(e) {
-        if (e.target.id === `1` || e.target.id === `2` || e.target.id === `3` || e.target.id === `4`) {
-            const targetedOption = [e.target.id][0];
-            // Roll new q
+    // Function reactToAnswer
+    const reactToAnswer = function (target) {
+            const targetedOption = target;
             const currentQuestion = d(`currentQuestion`);
-            const itogArray = rollForNewQuestion();
-            const question = itogArray[0];
-            const character = itogArray[1];
-            // Based on questionDotClicked, add and remove decks
+            // Check if option even exists
             if (loc.question[currentQuestion][targetedOption]) {
+                // Roll new q
+                const itogArray = rollForNewQuestion();
+                const question = itogArray[0];
+                const character = itogArray[1];
+                // Set new q
+                setQuestion(itogArray[0], itogArray[1]);
+                // Change q in localStorage
+                u(`currentQuestion`, `${itogArray[0]}`);
+                // Based on questionDotClicked, add and remove decks
                 const questionDotClicked = loc.question[currentQuestion][targetedOption];
                 decksAddRemoveOnClick(questionDotClicked);
             };
-            // Set new q
-            setQuestion(itogArray[0], itogArray[1]);
-            // Change q in localStorage
-            u(`currentQuestion`, `${itogArray[0]}`);
+    };
+    // Event listeners for manual press
+    document.addEventListener(`mousedown`, function(e) {
+        if (e.target.id === `1` || e.target.id === `2` || e.target.id === `3` || e.target.id === `4`) {
+            reactToAnswer([e.target.id][0]);
         };
+    });
+    // Event listener for 1-4 keys
+    document.addEventListener(`keydown`, function(e) {
+        var keyCode = event.keyCode;
+        if (keyCode >= 49 && keyCode <= 52) {
+            const trueNumber = keyCode - 48;
+            console.log(`Вы нажали клавишу ${trueNumber}`);
+            reactToAnswer(trueNumber);
+        }
     });
 };
