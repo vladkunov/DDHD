@@ -110,13 +110,15 @@ let loc = {
             1: {
                 democractic: 1,
                 patriotic: 1,
-                decksAdd: [`added`, `addedToo`],
-                decksRemove: [`removed4`, `remove4Two`]
+                decksAdd: [`added`],
+                decksRemove: [`removed1`]
             },
             2: {
                 treasury: -2,
                 democractic: 2,
                 patriotic: 5,
+                decksRemove: [`removed2`],
+                decksAdd: [`added`, `added2`]
             },
             3: {
                 treasury: -2,
@@ -793,7 +795,7 @@ let initializeFromDefaultLocalStorage = function() {
     u(`currentQuestion`, `welcome`)
 
     //decks in action
-    uArray(`decks`, [`example`, `example1NotDoneYet`, `removed4`]);
+    uArray(`decks`, [`example`, `example1NotDoneYet`, `removed1`, `removed2`]);
 };
 
 // ================================
@@ -1233,7 +1235,6 @@ const rollForNewQuestion = function () {
     };
 };
 
-// TODO: decksAdd / decksRemove after click
 const decksAddRemoveOnClick = function (questionDotClicked) {
     // First, decksAdd
     if (questionDotClicked.hasOwnProperty(`decksAdd`)) {
