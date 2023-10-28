@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--Created for free with Tennessine's Flag Designer at https://tennessine.co.uk/flags/-->
+
+<svg
+   class="svg faded fadein"
+   width="643"
+   height="338.4109"
+   viewBox="0 0 100 52.629999999999995"
+   id="svg"
+   style=""
+   version="1.1"
+   sodipodi:docname="west.svg"
+   inkscape:export-filename="west.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.69737709"
+     inkscape:cx="321.92053"
+     inkscape:cy="169.20544"
+     inkscape:window-width="1528"
+     inkscape:window-height="893"
+     inkscape:window-x="81"
+     inkscape:window-y="50"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg" />
+  <g
+     id="g2">
+    <g
+       id="g1">
+      <path
+         d="M0,0L100,0L100,52.629999999999995L0,52.629999999999995Z"
+         fill="rgb(13,24,33)"
+         id="path1" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,2.023623466491699)"
+     class="svg-group-clickable"
+     id="g4">
+    <g
+       id="g3">
+      <path
+         d="M0,0L100,0L100,4.0472470000000005L0,4.0472470000000005Z"
+         fill="rgb(65,235,212)"
+         id="path2" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,10.118117332458496)"
+     class="svg-group-clickable"
+     id="g6">
+    <g
+       id="g5">
+      <path
+         d="M0,8.094494000000001L100,8.094494000000001L100,12.141741L0,12.141741Z"
+         fill="rgb(65,235,212)"
+         id="path4" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,18.21787452697754)"
+     class="svg-group-clickable"
+     id="g8">
+    <g
+       id="g7">
+      <path
+         d="M0,16.194250999999998L100,16.194250999999998L100,20.241498L0,20.241498Z"
+         fill="rgb(65,235,212)"
+         id="path6" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,26.312369346618652)"
+     class="svg-group-clickable"
+     id="g10">
+    <g
+       id="g9">
+      <path
+         d="M0,24.288745L100,24.288745L100,28.335991999999997L0,28.335991999999997Z"
+         fill="rgb(65,235,212)"
+         id="path8" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,34.41212463378906)"
+     class="svg-group-clickable"
+     id="g12">
+    <g
+       id="g11">
+      <path
+         d="M0,32.388501999999995L100,32.388501999999995L100,36.435749L0,36.435749Z"
+         fill="rgb(65,235,212)"
+         id="path10" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,42.50662040710449)"
+     class="svg-group-clickable"
+     id="g14">
+    <g
+       id="g13">
+      <path
+         d="M0,40.482996L100,40.482996L100,44.530243L0,44.530243Z"
+         fill="rgb(65,235,212)"
+         id="path12" />
+    </g>
+  </g>
+  <g
+     transform="rotate(0,50,50.60637664794922)"
+     class="svg-group-clickable"
+     id="g16">
+    <g
+       id="g15">
+      <path
+         d="M0,48.582753L100,48.582753L100,52.629999999999995L0,52.629999999999995Z"
+         fill="rgb(65,235,212)"
+         id="path14" />
+    </g>
+  </g>
+  <defs
+     id="font-data">
+    <xhtml:style>svg * { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }&#10;.svg-group-clickable { cursor: pointer; }&#10;svg &gt; g &gt; g { transform-origin: left top; transform-box: fill-box; }&#10;.faded { opacity: 0.75; }&#10;.fadein { opacity: 1; transition: opacity 0.3s ease 0s; }&#10;</xhtml:style>
+    <xhtml:style>* { }&#10;</xhtml:style>
+  </defs>
+</svg>
