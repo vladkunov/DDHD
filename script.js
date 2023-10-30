@@ -88,11 +88,11 @@ let loc = {
             decksPlusChnc: [`plus05Chance`, 0.5],
             decksRemove: [`example1NotDoneYet`],
             decksAdd: [],
-            timePassedPlus: 1,
+            timePassed: 1,
             eng: {
                 text: "Hello! I am an example question which will appear only once.",
                 answers: {
-                1: "You're cool +dem +patriotic",
+                1: "You're cool +dem -patriotic",
                 2: "*Sigh* I'll pay -treasury +patriotism",
                 3: "Ok *opens wallet* -treasury +patriotism",
                 4: "*That's horrible!* Let me help -treasury +patriotism",
@@ -108,8 +108,8 @@ let loc = {
                 },
             },
             1: {
-                democractic: 1,
-                patriotic: 1,
+                democratic: 2,
+                patriotic: -5,
                 decksAdd: [`added`],
                 decksRemove: [`removed1`]
             },
@@ -647,7 +647,7 @@ let loc = {
                 eng: `Yellow Sector Federation (YSF)`,
                 ru: `Федерация Жёлтый Сектор (ФЖС)`,
             },
-            eng: `"The largest country on the Domain island, the United Domain Kingdom's (UDK) successor. After the Kingdom's dissolution, its first democratically elected president took power. Area: `,
+            eng: `The largest country on the Domain island, the United Domain Kingdom's (UDK) successor. After the Kingdom's dissolution, its first democratically elected president took power. Area: `,
             ru: `крупнейшая страна на доменском острове, наследница Доменского Союзного Королевства (ДСК). После его распада, она получила своего первого демократически избранного президента. Площадь: `
         },
         disaster: {
@@ -857,6 +857,11 @@ const updateStats = function () {
             };
         };
     };
+    // Future TODO: Animation that plays when stats update
+    // For that, we will request +/- value from reactToAnswer()
+    // Then, we will display change instead of number value,
+    // flashing for 2 seconds
+    // Yellow w/shadow will mean +, red w/shadow -
 };
 if (page === `game` || page === `relation`) {
     if (dnum(`gameStarted`) == 0) {
@@ -1224,7 +1229,6 @@ const rollForNewQuestion = function () {
                 };
             };
         };
-        console.log(chance);
         // Does is pass?
         let chanceCheckPassed = 0;
         if (Math.random() <= chance) {
@@ -1295,7 +1299,6 @@ const decksAddRemoveOnClick = function (questionDotClicked) {
             if (decksNow.includes(removeArray[i])) {
                 for (let iS = 0; iS < decksNow.length; iS++) {
                     if (decksNow[iS] === (removeArray[i])) {
-                        console.log(`Removing ${decksNow[iS]}`)
                         decksNow.splice(iS, 1);
                     };
                 };
@@ -1313,6 +1316,29 @@ if (page === `game`) {
             const currentQuestion = d(`currentQuestion`);
             // Check if option even exists
             if (loc.question[currentQuestion][targetedOption]) {
+                // Based on questionDotClicked, add and remove decks
+                const questionDotClicked = loc.question[currentQuestion][targetedOption];
+                decksAddRemoveOnClick(questionDotClicked);
+                // Apply changes to stats
+                const effectsKeys = Object.keys(questionDotClicked);
+                for (let i = 0; i < effectsKeys.length; i++) {
+                    const item = effectsKeys[i];
+                    if (typeof questionDotClicked[item] == `number`) {
+                        const currentValue = parseFloat(d(`${item}`));
+                        const newValue = currentValue + questionDotClicked[item];
+                        u(`${item}`, newValue);
+                        updateStats();
+                    } else {
+                        // TODO: Else if ---war, update string
+                    };
+                };
+                // TODO: Add timePassed
+                // Then add taxrate, growth, manpower, supplies accordingly
+                const questionOnLoc = loc.question[currentQuestion];
+                // Update years in power
+                // u(`score`, `${questionOnLoc.timePassed +}`) + ;
+
+
                 // Roll new q
                 const itogArray = rollForNewQuestion();
                 const question = itogArray[0];
@@ -1321,9 +1347,6 @@ if (page === `game`) {
                 setQuestion(itogArray[0], itogArray[1]);
                 // Change q in localStorage
                 u(`currentQuestion`, `${itogArray[0]}`);
-                // Based on questionDotClicked, add and remove decks
-                const questionDotClicked = loc.question[currentQuestion][targetedOption];
-                decksAddRemoveOnClick(questionDotClicked);
             };
     };
     // Event listeners for manual press
@@ -1337,7 +1360,6 @@ if (page === `game`) {
         var keyCode = event.keyCode;
         if (keyCode >= 49 && keyCode <= 52) {
             const trueNumber = keyCode - 48;
-            console.log(`Вы нажали клавишу ${trueNumber}`);
             reactToAnswer(trueNumber);
         }
     });

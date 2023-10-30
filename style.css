@@ -185,6 +185,18 @@ tr th {
   color: var(--back-text);
 }
 
+.backYText {
+  color: var(--back-text);
+  text-shadow: 0.3vmax 0.3vmax 1px var(--highlight-one);
+  /* color: var(--highlight-two); */
+}
+
+p.backYText {
+  /* color: var(--back-text);
+  text-shadow: 0.2vmax 0.2vmax 1px var(--highlight-one); */
+  /* color: var(--highlight-two); */
+}
+
 tr th.link {
   text-decoration: underline;}
 
@@ -309,6 +321,35 @@ Styles for charFace
 .scalablePath.second-ottenok {
   stroke: var(--highlight-two);
   fill: var(--highlight-two);
+}
+
+/* 
+====================
+Styles for p#prompt
+====================
+*/
+
+@keyframes text-wiggle-prompt {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.3vmax -0.3vmax 0.8px var(--highlight-one);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.3vmax 0.3vmax 0.8px var(--highlight-one);  
+  }
+}
+
+p.character#prompt {
+  animation: text-wiggle-prompt;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
 }
 
 /* 
