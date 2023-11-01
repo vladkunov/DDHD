@@ -1145,7 +1145,7 @@ document.addEventListener(`mousedown`, function(e) {
 });
 
 // ================================
-// Event Listeners relation map, mouseover
+// eventListeners relation map, mouseover
 // ================================
 
 let historyOnLoadDefault = function () {
@@ -1211,6 +1211,37 @@ let setQuestion = function (questionName, neededCharacter) {
         if (questionOnLoc[lang].answers[answerSelectedID]) {
             answersSelected[i].innerHTML = `(${answerSelectedID}) ${questionOnLoc[lang].answers[answerSelectedID]}`;
             answersSelected[i].classList.remove(`hidden`);
+            // Not active by default
+            answersSelected[i].classList.remove(`active`);
+            // Active if touched
+            answersSelected[i].addEventListener('touchstart', function() {
+                answersSelected[i].classList.add('active');
+            });
+            // Active if mouseover
+            answersSelected[i].addEventListener('mouseover', function() {
+                answersSelected[i].classList.add('active');
+            });
+            // Not active if mouseout
+            answersSelected[i].addEventListener('mouseout', function() {
+                answersSelected[i].classList.remove('active');
+            });
+            // On click of 1-4
+            document.addEventListener(`keydown`, function(e) {
+                var keyCode = event.keyCode;
+                if (keyCode >= 49 && keyCode <= 52) {
+                    const trueNumber = keyCode - 48;
+                    console.log(answersSelected[i].id);
+                    document.getElementById(trueNumber).classList.add('active');
+                }
+            });
+            // On keyup of 1-4
+            document.addEventListener(`keyup`, function(e) {
+                var keyCode = event.keyCode;
+                if (keyCode >= 49 && keyCode <= 52) {
+                    const trueNumber = keyCode - 48;
+                    document.getElementById(trueNumber).classList.remove('active');
+                }
+            });
         } else {
             answersSelected[i].innerHTML = ``;
             answersSelected[i].classList.add(`hidden`);
@@ -1348,42 +1379,42 @@ const decksAddRemoveOnClick = function (questionDotClicked) {
 if (page === `game`) {
     // Function reactToAnswer
     const reactToAnswer = function (target) {
-            const targetedOption = target;
-            const currentQuestion = d(`currentQuestion`);
-            // Check if option even exists
-            if (loc.question[currentQuestion][targetedOption]) {
-                // Based on questionDotClicked, add and remove decks
-                const questionDotClicked = loc.question[currentQuestion][targetedOption];
-                decksAddRemoveOnClick(questionDotClicked);
-                // Apply changes to stats
-                const effectsKeys = Object.keys(questionDotClicked);
-                for (let i = 0; i < effectsKeys.length; i++) {
-                    const item = effectsKeys[i];
-                    if (typeof questionDotClicked[item] == `number`) {
-                        const currentValue = parseFloat(d(`${item}`));
-                        const newValue = currentValue + questionDotClicked[item];
-                        u(`${item}`, newValue);
-                        updateStats();
-                    } else {
-                        // TODO: Else if ---war, update string
-                    };
+        const targetedOption = target;
+        const currentQuestion = d(`currentQuestion`);
+        // Check if option even exists
+        if (loc.question[currentQuestion][targetedOption]) {
+            // Based on questionDotClicked, add and remove decks
+            const questionDotClicked = loc.question[currentQuestion][targetedOption];
+            decksAddRemoveOnClick(questionDotClicked);
+            // Apply changes to stats
+            const effectsKeys = Object.keys(questionDotClicked);
+            for (let i = 0; i < effectsKeys.length; i++) {
+                const item = effectsKeys[i];
+                if (typeof questionDotClicked[item] == `number`) {
+                    const currentValue = parseFloat(d(`${item}`));
+                    const newValue = currentValue + questionDotClicked[item];
+                    u(`${item}`, newValue);
+                    updateStats();
+                } else {
+                    // TODO: Else if ---war, update string
                 };
-                // TODO: Add timePassed
-                // Then add taxrate, growth, manpower, supplies accordingly
-                const questionOnLoc = loc.question[currentQuestion];
-                // Update years in power
-                // u(`score`, `${questionOnLoc.timePassed +}`) + ;
-
-
-                // Roll new q
-                const itogArray = rollForNewQuestion();
-                const question = itogArray[0];
-                const character = itogArray[1];
-                // Set new q
-                setQuestion(itogArray[0], itogArray[1]);
-                // Change q in localStorage
-                u(`currentQuestion`, `${itogArray[0]}`);
             };
+            // TODO: Add timePassed
+            // Then add taxrate, growth, manpower, supplies accordingly
+            const questionOnLoc = loc.question[currentQuestion];
+            // Update years in power
+            // u(`score`, `${questionOnLoc.timePassed +}`) + ;
+
+
+            // Roll new q
+            const itogArray = rollForNewQuestion();
+            const question = itogArray[0];
+            const character = itogArray[1];
+            // Set new q
+            setQuestion(itogArray[0], itogArray[1]);
+            // Change q in localStorage
+            u(`currentQuestion`, `${itogArray[0]}`);
+        };
     };
     // Event listeners for manual press
     document.addEventListener(`mousedown`, function(e) {

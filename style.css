@@ -134,7 +134,7 @@ button.character:empty {
   flex-direction: column;
 }
 
-button.character:hover {
+button.character.active {
   background-color: var(--highlight-one);
 }
 
