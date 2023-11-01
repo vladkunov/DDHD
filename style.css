@@ -25,6 +25,7 @@
 
 :root {
   --back-text: yellow;
+  --back-text-half: rgba(255, 255, 0, 0.571);
   --back-gen: rgba(12, 15, 10, 1);
   --highlight-one: rgba(255, 32, 110, 1);
   --highlight-two: rgba(65, 234, 212, 1);
@@ -34,6 +35,12 @@
   --onyx: rgb(52, 62, 61);
   --onyx-grey: rgba(52, 62, 61, 0.487);
 }
+
+/* 
+====================
+Styles for game.html
+====================
+*/
 
 .hidden {
   display: none;
@@ -62,10 +69,14 @@ div.buttonsContainer {
   width: 100%;
 }
 
+div.flexible {
+  display: flex;
+}
+
 img.character {
   width: 40vw;
   max-width: max(50vh);
-  margin: 1vh 0vw 0vw -1vw;
+  margin: 1vh 0vw 0vh -1vw;
 }
  
 p.character {
@@ -75,7 +86,7 @@ p.character {
   margin: 0%;
   display: inline-block;
   font-size: clamp(2vh, 3vw, 6vmin);
-  padding-left: 0.5vh;
+  /* padding-left: 0.5vh; */
   /* background-color: var(--back-text); */
   text-wrap: wrap;
   color: var(--highlight-two);
@@ -160,7 +171,7 @@ div.smallDynamic {
 }
 
 table {
-  border-collapse:collapse;
+  border-collapse: collapse;
   border-spacing: 1.2vw;
 }
 
@@ -185,12 +196,6 @@ tr th {
   color: var(--back-text);
 }
 
-.backYText {
-  color: var(--back-text);
-  text-shadow: 0.3vmax 0.3vmax 1px var(--highlight-one);
-  /* color: var(--highlight-two); */
-}
-
 p.backYText {
   /* color: var(--back-text);
   text-shadow: 0.2vmax 0.2vmax 1px var(--highlight-one); */
@@ -206,6 +211,7 @@ tr td.link {
 
 div.column {
   flex: 1;
+  /* flex-basis: 25%; */
   /* border-top: 1vmax double #000; */
   padding: 1vh 1vh clamp(1vw, 9vh, 10vh) 1vh;
   /* padding: clamp(1vmax, 8vmax, 10vh) 1vh 1vmax 1vh; */
@@ -226,6 +232,63 @@ p.thickTop {
 p.greyed {
   color: var(--onyx-grey);
   text-shadow: 0.3vmax 0.2vmax 0.8px var(--onyx-grey);
+}
+
+/* 
+====================
+Special mobile styles
+====================
+*/
+
+/* If mobile */
+
+body.mobile {
+}
+
+body.mobile div.buttonsContainer.notMobile button {
+    display: none;
+}
+
+body.mobile div.buttonsContainer.mobileOnly button {
+    display: block;
+    clear: left;
+    width: 100%;
+    line-height: 2.5vmax;
+    font-size: clamp(1vmax, 3.5vmax, 6vh);
+}
+
+body.mobile div.column {
+  flex: 1;
+  flex-basis: 42%;
+  /* color: aliceblue; */
+  padding: 1vh 1vh clamp(1vw, 9vh, 10vh) 1vh;
+}
+
+body.mobile img.character {
+  margin: 1vh 0vw 1.5vh -1vw;
+}
+
+body.mobile div.promptAndChar {
+  min-height: 40vw;
+  /* max-height: max(51vh); */
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+body.mobile div.promptContainer {
+  margin: -0.4vh 0vw 0vw 2vw;
+}
+
+/* If not mobile */
+
+body div.buttonsContainer.notMobile button {
+    display: block;
+}
+
+body div.buttonsContainer.mobileOnly button {
+  display: none;
 }
 
 /* 
@@ -335,7 +398,7 @@ Styles for p#prompt
   25% {
   }
   50% {
-  text-shadow: -0.3vmax -0.3vmax 0.8px var(--highlight-one);
+  text-shadow: -0.25vmax -0.25vmax 0.8px var(--highlight-one);
   }
   75% {
   }
@@ -346,6 +409,86 @@ Styles for p#prompt
 
 p.character#prompt {
   animation: text-wiggle-prompt;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+
+/* 
+====================
+Styles for .backYText
+====================
+*/
+
+@keyframes text-wiggle-backY {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.15vmax -0.1vmax 0.8px var(--bright);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.15vmax 0.1vmax 0.8px var(--bright);  
+  }
+}
+
+@keyframes text-wiggle-backYcolor {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.05vmax -0.05vmax 0.8px var(--bright);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.05vmax 0.05vmax 0.8px var(--bright);  
+  }
+}
+
+@keyframes text-wiggle-backYnormie {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.15vmax -0.1vmax 0.8px var(--highlight-one);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.15vmax 0.1vmax 0.8px var(--highlight-one);  
+  }
+}
+
+.backYText {
+  /* color: var(--highlight-one); */
+  /* text-shadow: 0.1vmax 0.1vmax 1px var(--back-text); */
+  color: var(--bright);
+  animation: text-wiggle-backYcolor;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+
+p.largeDynamic#support {
+  /* color: var(--back-text); */
+  text-shadow: 0.15vmax 0.1vmax 0.4px var(--bright);
+  animation: text-wiggle-backY;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+
+p.largeDynamic {
+  animation: text-wiggle-backYnormie;
   animation-duration: 8s;
   animation-iteration-count: infinite;
   animation-timing-function: ease;
@@ -447,22 +590,82 @@ body.relation svg.svgMapCountry path:hover {
   /* stroke-dasharray: 10px 10px; */
 }
 
+@keyframes text-wiggle-back2 {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.2vmax -0.1vmax 0.8px var(--highlight-two);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.2vmax 0.1vmax 0.8px var(--highlight-two);  
+  }
+}
+
 .highlightNormalCountry {
   /* font-size: larger; */
   color: var(--bright);
   text-shadow: 0.2vmax 0.1vmax 0.8px var(--highlight-two);
+  animation: text-wiggle-back2;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+
+@keyframes text-wiggle-one {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.2vmax -0.15vmax 0.8px var(--highlight-one);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.2vmax 0.15vmax 0.8px var(--highlight-one);  
+  }
 }
 
 .highlightDisaster {
   /* font-size: larger; */
   color: var(--highlight-one);
   text-shadow: 0.2vmax 0.15vmax 0.8px var(--highlight-one);
+  animation: text-wiggle-one;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+}
+
+@keyframes text-wiggle-highlight {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.3vmax -0.2vmax 0.8px var(--bright);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.3vmax 0.2vmax 0.8px var(--bright);  
+  }
 }
 
 .highlightCountry {
   /* font-size: larger; */
   color: var(--back-text);
   text-shadow: 0.3vmax 0.2vmax 0.8px var(--bright);
+  animation: text-wiggle-highlight;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
 }
 
 /* 

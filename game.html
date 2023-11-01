@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css"/>
   </head>
-  <body>
+  <body class="mobile">
     <div class="character unselectable">
       <!-- <button id="fullscreen-button" class="squishCursor unselectable">&#x2191;</button> -->
       <div class="charFace">
@@ -19,13 +19,15 @@
           <path class="scalablePath second-ottenok" d=""></path>
         </svg>
       </div>
-      <div class="promptContainer">
-        <p class="character" id="prompt">
-          The West is offering to sell a region. It will cost 300 million.
-        </p>
+      <div class="promptAndChar">
+        <div class="promptContainer">
+          <p class="character" id="prompt">
+            The West is offering to sell a region. It will cost 300 million.
+          </p>
+        </div>
+        <p id="characterDesc">― Officer Ofleet</p>
       </div>
-      <p id="characterDesc">― Officer Ofleet</p>
-      <div class="buttonsContainer">
+      <div class="buttonsContainer notMobile">
         <button class="character squishCursor unselectable" id="1">1: Мне бы это очень хотелось!</button>
         <button class="character squishCursor unselectable" id="2">
           2: No.
@@ -35,6 +37,19 @@
           4:
         </button>
       </div>
+      <div class="buttonsContainer mobileOnly">
+        <button class="character squishCursor unselectable" id="1">1: Мне бы это очень хотелось!</button>
+        <button class="character squishCursor unselectable" id="2">
+          2: No.
+        </button>
+        <button class="character squishCursor unselectable" id="3">3: Я приму ваше предложение только по более низкой цене. Кроме того, мне потребуется большее вознаграждение за это.</button>
+        <button class="character squishCursor unselectable" id="4">
+          4:
+        </button>
+      </div>
+
+      <div class="flexible"></div>
+
       <div class="stats">
         <div class="column">
 
@@ -103,73 +118,68 @@
 
         </div>
 
-        <div class="column">
-          
-          <p class="largeDynamic" id="military">Military</p>
+          <div class="column">
+            
+            <p class="largeDynamic" id="military">Military</p>
 
-          <div class="smallDynamic">
+            <div class="smallDynamic">
 
-            <table>
-              <tr>
-                <th id="manpower">Manpower</th>
-                <td>2.3</td>
-                <th>mil</th>
-              </tr>
-              <tr>
-                <th id="manpowerChange">Manpower/q</th>
-                <td>0.05</td>
-                <th>mil</th>
-              </tr>
-              <tr>
-                <th id="supplies">Supplies</th>
-                <td>50</td>
-                <th>%</th>
-              </tr>
-              <tr>
-                <th id="suppliesChange">Supplies/q</th>
-                <td>0.25</td>
-                <th>%</th>
-              </tr>
+              <table>
+                <tr>
+                  <th id="manpower">Manpower</th>
+                  <td>2.3</td>
+                  <th>mil</th>
+                </tr>
+                <tr>
+                  <th id="manpowerChange">Manpower/q</th>
+                  <td>0.05</td>
+                  <th>mil</th>
+                </tr>
+                <tr>
+                  <th id="supplies">Supplies</th>
+                  <td>50</td>
+                  <th>%</th>
+                </tr>
+                <tr>
+                  <th id="suppliesChange">Supplies/q</th>
+                  <td>0.25</td>
+                  <th>%</th>
+                </tr>
 
-            </table>
+              </table>
 
-          </div>
-
-        </div>
-
-        <div class="column">
-
-          <p class="largeDynamic" id="extra"></p>
-
-          <div class="smallDynamic">
-
-            <table>
-              <tr>
-                <th id="score"></th>
-                <th></th>
-                <td>7.75</td>
-              </tr>
-              <tr>
-                <th id="election"></th>
-                <th></th>
-                <td>0.25</td>
-              </tr>
-              <tr>
-                <th id="relations" class="link squishCursor"></th>
-                <th></th>
-                <td>(i)</td>
-              </tr>
-              <tr>
-                <th id="language" class="link squishCursor"></th>
-                <th></th>
-                <td>&lt;-</td>
-              </tr>
-
-            </table>
+            </div>
 
           </div>
 
-        </div>
+          <div class="column">
+
+            <p class="largeDynamic" id="extra"></p>
+
+            <div class="smallDynamic">
+
+              <table>
+                <tr>
+                  <th id="score"></th>
+                  <th></th>
+                  <td>7.75</td>
+                </tr>
+                <tr>
+                  <th id="election"></th>
+                  <th></th>
+                  <td>0.25</td>
+                </tr>
+                <tr>
+                  <th id="relations" class="link squishCursor"></th>
+                  <th></th>
+                  <td>(i)</td>
+                </tr>
+                <tr>
+                  <th id="language" class="link squishCursor"></th>
+                  <th></th>
+                  <td>&lt;-</td>
+                </tr>
+              </table>
       </div>
     </div>
     <script src="script.js"></script>

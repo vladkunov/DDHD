@@ -75,6 +75,34 @@ function setVisualLang(lang) {
 setVisualLang(lang);
 
 // ================================
+// If mobile, give body class body.mobile
+// ================================
+
+const mobile = function (on) {
+    const body = document.querySelector(`body`);
+    if (on == 1) {
+        body.classList.add(`mobile`);
+    } else {
+        body.classList.remove(`mobile`);
+    };
+};
+
+const judgeMobileOrNot = function () {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    if (screenHeight >= screenWidth) {
+        mobile(1);  
+    } else {
+        mobile(0);
+    };
+}
+
+// Activate when screen change or rotate, or just load
+judgeMobileOrNot();
+// window.addEventListener('resize', judgeMobileOrNot);
+const interval = setInterval(judgeMobileOrNot, 200);
+
+// ================================
 // loc - object which stores all localization data (texts)
 // ================================
 let loc = {
@@ -82,7 +110,7 @@ let loc = {
     // loc.question
     question : {
        exampleOne: {
-            characters: [`richard`],
+            characters: [`richard`, `ofleet`],
             baseChnc: [0.5],
             decksNeed: [`example`],
             decksPlusChnc: [`plus05Chance`, 0.5],
@@ -92,14 +120,14 @@ let loc = {
             eng: {
                 text: "Hello! I am an example question which will appear only once.",
                 answers: {
-                1: "You're cool +dem -patriotic",
+                1: "Ok *opens wallet* -treasury +patriotism",
                 2: "*Sigh* I'll pay -treasury +patriotism",
-                3: "Ok *opens wallet* -treasury +patriotism",
-                4: "*That's horrible!* Let me help -treasury +patriotism",
+                3: "You're cool +dem -patriotic",
+                4: "*That's horrible!* Let me help -treasury",
                 },
             },
             ru: {
-                text: "Привет! Я - пример вопроса, который появится только один раз. А это уже просто случайные слова, заполняюшие площадь экрана. А это уже просто случайные слова, заполняюшие площадь экрана.",
+                text: "Мы нанесли три удара по вражеским позициям. Уничтоженио 20 БТРов, 7 боевых вертолетов, и 700 кадров личного состава хонтийской армии. Враг бежит, и победа за нами!",
                 answers: {
                 1: "Ты молодец +дем +патриотичность",
                 2: "*Вздох* Я заплачу -сокровищница +патриотичность",
@@ -115,7 +143,7 @@ let loc = {
             },
             2: {
                 treasury: -2,
-                democractic: 2,
+                democratic: 2,
                 patriotic: 5,
                 decksRemove: [`removed2`],
                 decksAdd: [`added`, `added2`]
@@ -171,7 +199,7 @@ let loc = {
                 },
             },
             ru : {
-                text: "Пример3",
+                text: "Карфагена должна быть уничтожена!",
                 answers: {
                 1: "Oк",
                 2: "Не ок",
@@ -656,7 +684,7 @@ let loc = {
                 ru: `ДМЗ «Небесная Лестница»`,
             },
             eng: `exclusion zone formed in 2021 as a result of an incident involving the failed launch of a low-orbit irrigation system. It has been declared demilitarized, as troops cannot in principle survive the zone.`,
-            ru: `зона отчуждения, образованная в 2021 крупномасштабным происшествием неудачного запуска низкоорбитальной системы орошения. Зона объявлена демилитаризованной, т.к. войска в принципе не могут в ней выжить.`
+            ru: `зона отчуждения, образованная в 2021 после крупномасштабного происшествия - неудачного запуска низкоорбитальной системы орошения. Зона объявлена демилитаризованной, т.к. войска в принципе не могут в ней выжить.`
         },
         default: {
             nameDisplay: {
@@ -751,6 +779,8 @@ if (page === `game`) {
 } else if (page === `relation`) {
     upImage(`./graphical-assets/${`map`}.png`);
 };
+
+// TODO: Font caching upon reload (reload w/ wifi bug on mobile)
 
 // ================================
 // Initialization of localStorage() variables
@@ -892,10 +922,6 @@ const drawChar = function (currentChar) {
     characterDescSelected.textContent = `― ${charBranchOnLoc[lang].name}${charBranchOnLoc[lang].title}`;
 };
 
-if (page === `game`) {
-    // drawChar(d(`currentChar`));
-};
-
 // Update scale of up to 4 scalable paths
 function updateScale() {
     //Find img.character
@@ -919,11 +945,9 @@ function updateScale() {
             toTransform = scalablePaths[i].classList[3];
         }
         document.querySelector(`.${toTransform}`).style.transform = `scale(${newPathScale})`;
+        document.querySelector(`.${toTransform}`).style.display = `none`;
+        document.querySelector(`.${toTransform}`).style.display = ``;
     };
-};
-if (page === `game`) {
-    // updateScale();
-    window.addEventListener('resize', updateScale);
 };
 
 // updateMapScale()
@@ -942,10 +966,22 @@ function updateMapScale() {
             document.getElementById(`map${i}`).style.transform = `scale(${newPathScale})`;
     };
 };
+
+// Event listeners
 if (page === `relation`) {
     updateMapScale();
     window.addEventListener('resize', updateMapScale);
 };
+if (page === `game`) {
+    window.addEventListener('load', updateScale);
+    window.addEventListener('resize', updateScale);
+};
+// Reload stylesheet - DOESN't WORK TO FIX FONT ON CONNECTION CHANGE BUG
+// const reloadStyle = function () {
+//     var linkStyleSheet = document.querySelector(`link`);
+//     linkStyleSheet.href = `style.css`;
+// };
+// window.addEventListener('load', reloadStyle);
 
 // ================================
 // Change stat / relation text to reflect lang
