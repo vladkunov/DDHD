@@ -82,6 +82,12 @@ img.character {
   max-width: max(50vh);
   margin: 1vh 0vw 0vh -1vw;
 }
+
+body.game svg {
+  margin: 1vh 0vw 0vh -1vw;
+  width: 40vw;
+  max-width: max(50vh);
+}
  
 p.character {
   font-family: 'vhs';
@@ -280,7 +286,11 @@ body.mobile div.column {
   padding: 1vh 1vh clamp(1vw, 9vh, 10vh) 1vh;
 }
 
-body.mobile img.character {
+body.mobile.game img {
+  margin: 1vh 0vw 1.5vh -1vw;
+}
+
+body.mobile svg {
   margin: 1vh 0vw 1.5vh -1vw;
 }
 
@@ -294,16 +304,34 @@ body.mobile div.promptAndChar {
 }
 
 body.mobile div.promptContainer {
-  margin: -0.4vh 0vw 0vw 2vw;
+  /* margin: -0.4vh 0vw 0vw 2vw; */
+  display: flex;
+  flex-direction: row;
+}
+
+body.mobile.game div.promptContainer {
+  width: 100%;
 }
 
 body.mobile p#prompt {
+}
+
+body.mobile.game p#prompt {
+  margin-top: 1.5vh;
+  width: 100%;
+  display: block;
   text-align: center;
 }
+
 
 body.mobile p#characterDesc {
   text-align: center;
   margin-bottom: 1vmax;
+}
+
+body.mobile p#history.character {
+  text-align: center;
+  /* margin: 0vh 0vw 0vw 1vmax; */
 }
 
 /* If not mobile */
@@ -535,8 +563,17 @@ body.relation p#characterDesc {
   display: block;
 }
 
-button#returnFromRelation {
-  /* padding-bottom: 0; */
+/* body.relation p#prompt {
+  text-align: center;
+} */
+
+body.relation div.buttonsContainer {
+  padding-top: 0.5vh;
+}
+
+body.relation.mobile div.buttonsContainer {
+  padding-top: 1.5vw;
+  clear: left;
 }
 
 body.relation img.character {
@@ -553,8 +590,13 @@ body.relation img#map {
   /* box-shadow: -0.5vmax -0.5vmax 1px 1px var(--highlight-two); */
 }
 
-div.promptContainer {
-  /* margin: -0.4vh 0vw 0vw 2vw; */
+/* body.relation div.promptContainer {
+  margin: 0vh 0vw 0vw 10vmax;
+} */
+
+p#history.character {
+  /* text-align: center; */
+  /* margin: 0vh 0vw 0vw 1vmax; */
 }
 
 body.relation .mapbox {

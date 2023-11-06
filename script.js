@@ -149,7 +149,9 @@ let loc = {
                 democratic: 2,
                 patriotic: -5,
                 decksAdd: [`added`],
-                decksRemove: [`removed1`]
+                decksRemove: [`removed1`],
+                warHonti: `War`,
+                nextQuestion: `exampleTwo`,
             },
             2: {
                 treasury: -2,
@@ -451,10 +453,10 @@ let loc = {
             election: {
                 name: "election",
                 eng: {
-                    text: "Years to election"
+                    text: "Election in"
                 },
                 ru: {
-                    text: "Годы до выборов"
+                    text: "До выборов"
                 },
             },
             language: {
@@ -849,6 +851,9 @@ let initializeFromDefaultLocalStorage = function() {
 
     //currentQuestion
     u(`currentQuestion`, `welcome`)
+
+    //nextQuestion
+    u(`nextQuestion`, ``)
 
     //lastAnswer
     u(`lastAnswer`, ``)
@@ -1421,6 +1426,7 @@ if (page === `game`) {
     const reactToAnswer = function (target) {
         const targetedOption = target;
         const currentQuestion = d(`currentQuestion`);
+        let nextQuestion;
         // Check if option even exists
         if (loc.question[currentQuestion][targetedOption]) {
             // Based on questionDotClicked, add and remove decks
@@ -1434,8 +1440,12 @@ if (page === `game`) {
                     const currentValue = parseFloat(d(`${item}`));
                     const newValue = currentValue + questionDotClicked[item];
                     u(`${item}`, newValue);
-                } else {
-                    // TODO: Else if ---war, update string
+                } else if (questionDotClicked[item] == `War` || questionDotClicked[item] == `Peace`) {
+                    // Else if War/Peace, simply replace string
+                    const newValue = questionDotClicked[item];
+                    u(`${item}`, newValue);
+                } else if (effectsKeys[i] == `nextQuestion`) {
+                    nextQuestion = questionDotClicked[item];
                 };
             };
             // Passive changes
@@ -1477,14 +1487,22 @@ if (page === `game`) {
             updateStats();
             // TODO: Remember lastAnswer
             u(`lastAnswer`, `${target}`);
-            // Roll new q
-            const itogArray = rollForNewQuestion();
-            const question = itogArray[0];
-            const character = itogArray[1];
-            // Set new q
-            setQuestion(itogArray[0], itogArray[1]);
-            // Change q in localStorage
-            u(`currentQuestion`, `${itogArray[0]}`);
+            if (nextQuestion) {
+                // Get char and set
+                const charactersOk = loc.question[nextQuestion].characters;
+                const randomCharIndex = Math.floor(Math.random() * charactersOk.length);
+                const character = charactersOk[randomCharIndex];
+                setQuestion(nextQuestion, character);
+                // Change q in localStorage
+                u(`currentQuestion`, `${nextQuestion}`);
+            } else {
+                // Roll new q
+                const itogArray = rollForNewQuestion();
+                // Set new q
+                setQuestion(itogArray[0], itogArray[1]);
+                // Change q in localStorage
+                u(`currentQuestion`, `${itogArray[0]}`);
+            };
         };
     };
     // Event listeners for manual press
