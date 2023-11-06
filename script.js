@@ -75,6 +75,16 @@ function setVisualLang(lang) {
 setVisualLang(lang);
 
 // ================================
+// Redir to index if game not started
+// ================================
+if (page !== `index`) {
+    if (!parseInt(d(`gameStarted`))) {
+        window.location.href = `./index.html`;
+        resetGame();
+    };
+};
+
+// ================================
 // If mobile, give body class body.mobile
 // ================================
 
@@ -116,7 +126,7 @@ let loc = {
             decksPlusChnc: [`plus05Chance`, 0.5],
             decksRemove: [`example1NotDoneYet`],
             decksAdd: [],
-            timePassed: 1,
+            quartersPassed: 1,
             eng: {
                 text: "Hello! I am an example question which will appear only once.",
                 answers: {
@@ -165,7 +175,7 @@ let loc = {
             decksNeed: [`example`],
             decksPlusChnc: [],
             eng: {
-                text: "Example2",
+                text: "Expanding handcrafted accessories line, pricing, marketing.",
                 answers: {
                 1: "Ok",
                 2: "No ok",
@@ -191,7 +201,7 @@ let loc = {
             decksNeed: [`example`],
             decksPlusChnc: [],
             eng: {
-                text: "Example3",
+                text: "Are you sure?",
                 answers: {
                 1: "Ok",
                 2: "No ok",
@@ -199,7 +209,7 @@ let loc = {
                 },
             },
             ru : {
-                text: "Карфагена должна быть уничтожена!",
+                text: "Правда?",
                 answers: {
                 1: "Oк",
                 2: "Не ок",
@@ -780,8 +790,6 @@ if (page === `game`) {
     upImage(`./graphical-assets/${`map`}.png`);
 };
 
-// TODO: Font caching upon reload (reload w/ wifi bug on mobile)
-
 // ================================
 // Initialization of localStorage() variables
 // ================================
@@ -803,9 +811,9 @@ let initializeFromDefaultLocalStorage = function() {
     u(`growth`, `1`);
     // military
     u(`manpower`, `0.45`);
-    u(`manpowerChange`, `0`);
+    u(`manpowerChange`, `0.01`);
     u(`supplies`, `50`);
-    u(`suppliesChange`, `0`);
+    u(`suppliesChange`, `0.1`);
     // extra
     u(`score`, `0`);
     u(`election`, `6`);
@@ -841,6 +849,12 @@ let initializeFromDefaultLocalStorage = function() {
 
     //currentQuestion
     u(`currentQuestion`, `welcome`)
+
+    //lastAnswer
+    u(`lastAnswer`, ``)
+
+    //Payment - Выплата
+    u(`payment`, `0`)
 
     //decks in action
     uArray(`decks`, [`example`, `example1NotDoneYet`, `removed1`, `removed2`, `plus05Chance`]);
@@ -895,7 +909,7 @@ const updateStats = function () {
 };
 if (page === `game` || page === `relation`) {
     if (dnum(`gameStarted`) == 0) {
-        initializeFromDefaultLocalStorage();
+        // initializeFromDefaultLocalStorage();
     };
     updateStats();
 };
@@ -1070,15 +1084,21 @@ function redirectToURL(link) {
 }
 
 // Play + Reset links
+const resetGame = function () {
+    localStorage.clear();
+    u(`lang`, `${lang}`)
+    u(`gameStarted`, `0`);
+    translateElementsInterface(lang);
+}
 document.addEventListener(`mousedown`, function(e) {
     if (e.target.id === `play`) {
-        redirectToURL(`./game.html`);  
+        redirectToURL(`./game.html`);
+        if (!dnum(`gameStarted`)) {
+            initializeFromDefaultLocalStorage();
+        }
     };
     if (e.target.id === `reset`) {
-        localStorage.clear();
-        u(`lang`, `${lang}`)
-        u(`gameStarted`, `0`);
-        translateElementsInterface(lang);
+        resetGame();
     };
 });
 
@@ -1103,18 +1123,34 @@ document.addEventListener(`mousedown`, function(e) {
     };
 });
 
-// Exit from relation + Escape
-// if (page === `relation`) {
-//     document.addEventListener(`keydown`, function(e) {
-//         if (e.key === `Escape`) redirectToURL(`./game.html`);
-//     });
-// };
-// EventListener for exit from returnFromRelation
+// Exit from relation
 document.addEventListener(`mousedown`, function(e) {
     if (e.target.id === `returnFromRelation`) {
+        document.getElementById(`returnFromRelation`).classList.add('activeUnder');
         redirectToURL(`./game.html`)
     };
 });
+
+if (page === `relation`) {
+    // Other for relation
+    const returnFromRelationSelected = document.getElementById(`returnFromRelation`);
+    // Active if touched
+    returnFromRelationSelected.addEventListener('touchstart', function() {
+        returnFromRelationSelected.classList.add('activeUnder');
+    });
+    // Not active if mousend
+    returnFromRelationSelected.addEventListener('touchend', function() {
+        returnFromRelationSelected.classList.remove('activeUnder');
+    });
+    // Active if mouseover
+    returnFromRelationSelected.addEventListener('mouseover', function() {
+        returnFromRelationSelected.classList.add('activeUnder');
+    });
+    // Not active if mouseout
+    returnFromRelationSelected.addEventListener('mouseout', function() {
+        returnFromRelationSelected.classList.remove('activeUnder');
+    });
+}
 
 // Lang Link to change lang + statTranslate()
 // Function which toggles language
@@ -1217,6 +1253,10 @@ let setQuestion = function (questionName, neededCharacter) {
             answersSelected[i].addEventListener('touchstart', function() {
                 answersSelected[i].classList.add('active');
             });
+            // Not active if mousend
+            answersSelected[i].addEventListener('touchend', function() {
+                answersSelected[i].classList.remove('active');
+            });
             // Active if mouseover
             answersSelected[i].addEventListener('mouseover', function() {
                 answersSelected[i].classList.add('active');
@@ -1230,7 +1270,7 @@ let setQuestion = function (questionName, neededCharacter) {
                 var keyCode = event.keyCode;
                 if (keyCode >= 49 && keyCode <= 52) {
                     const trueNumber = keyCode - 48;
-                    console.log(answersSelected[i].id);
+                    // console.log(answersSelected[i].id);
                     document.getElementById(trueNumber).classList.add('active');
                 }
             });
@@ -1394,18 +1434,49 @@ if (page === `game`) {
                     const currentValue = parseFloat(d(`${item}`));
                     const newValue = currentValue + questionDotClicked[item];
                     u(`${item}`, newValue);
-                    updateStats();
                 } else {
                     // TODO: Else if ---war, update string
                 };
             };
-            // TODO: Add timePassed
-            // Then add taxrate, growth, manpower, supplies accordingly
-            const questionOnLoc = loc.question[currentQuestion];
-            // Update years in power
-            // u(`score`, `${questionOnLoc.timePassed +}`) + ;
-
-
+            // Passive changes
+            if (loc.question[currentQuestion].quartersPassed) {
+                const questionOnLoc = loc.question[currentQuestion];
+                const rlTimePassed = (questionOnLoc.quartersPassed / 4);
+                // Updated score
+                const currentScore = parseFloat(d(`score`));
+                const newScore = currentScore + rlTimePassed;
+                u(`score`, `${newScore}`);
+                // Update election
+                const currentElection = parseFloat(d(`election`));
+                const newElection = currentElection - rlTimePassed;
+                u(`election`, `${newElection}`);
+                // Growth + taxes every "payment"
+                const currentPayment = parseFloat(d(`payment`)) + (questionOnLoc.quartersPassed);
+                let newPayment = currentPayment;
+                for (let i = 0; newPayment >= 4; newPayment = currentPayment - 4) {
+                    u(`gdp`, `${parseFloat(d(`gdp`))+parseFloat(d(`growth`))}`);
+                    u(`treasury`, `${parseFloat(d(`treasury`))+Math.round(parseFloat(d(`gdp`))*parseFloat(d(`tax`))/100)}`);
+                    console.log(`yes`);
+                };
+                u(`payment`, `${newPayment}`);
+                // Manpower, supplies each questionOnLoc.quartersPassed
+                for (let i = 0; i < questionOnLoc.quartersPassed; i++) {
+                    // man
+                    const manpowerChange = Math.round(parseFloat(d(`manpowerChange`)*100))/100;
+                    const manpower = parseFloat(d(`manpower`));
+                    const manpowerUp100 = (manpower + manpowerChange)*100;
+                    u(`manpower`, `${Math.round(manpowerUp100)/100}`);
+                    // supplies
+                    const suppliesChange = Math.round(parseFloat(d(`suppliesChange`)*10))/10;
+                    const supplies = parseFloat(d(`supplies`));
+                    const suppliesUp10 = (supplies + suppliesChange)*10;
+                    u(`supplies`, `${Math.round(suppliesUp10)/10}`);
+                };
+            };
+            // Update
+            updateStats();
+            // TODO: Remember lastAnswer
+            u(`lastAnswer`, `${target}`);
             // Roll new q
             const itogArray = rollForNewQuestion();
             const question = itogArray[0];

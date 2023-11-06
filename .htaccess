@@ -1,0 +1,13 @@
+# Cache fonts for 604800 (7 days)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+</IfModule>
+
+# Cache pngs for 604800 (7 days)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(png)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+</IfModule>
