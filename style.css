@@ -100,7 +100,22 @@ p.character {
   /* background-color: var(--back-text); */
   text-wrap: wrap;
   color: var(--highlight-two);
-  text-shadow: 0.3vmax 0.2vmax 0.8px var(--highlight-one);
+  text-shadow: var(--highlight-one) 0.3vmax 0.2vmax 0.8px;
+  /* animation: text-wiggle-prompt;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate; */
+}
+
+div.status p.character{
+  /* text-shadow: 0.3vmax 0.2vmax 0.8px var(--bright); */
+  /* color: var(--bright); */
+}
+
+div.war p.character{
+  /* text-shadow: 0.3vmax 0.2vmax 0.8px var(--bright); */
+  color: var(--highlight-one);
 }
 
 .promptContainer {
@@ -317,7 +332,7 @@ body.mobile p#prompt {
 }
 
 body.mobile.game p#prompt {
-  margin-top: 1.5vh;
+  margin-top: 1vh;
   width: 100%;
   display: block;
   text-align: center;
@@ -434,10 +449,22 @@ Styles for charFace
   animation-direction: alternate;
 }
 
+div.status .scalablePath.first-ottenok {
+  stroke: var(--bright);
+  fill: var(--bright);
+}
+
+div.war .scalablePath.second-ottenok {
+  stroke: var(--highlight-one);
+  fill: var(--highlight-one);
+}
+
 .scalablePath.second-ottenok {
+  /* Blue */
   stroke: var(--highlight-two);
   fill: var(--highlight-two);
 }
+
 
 /* 
 ====================
@@ -460,6 +487,21 @@ Styles for p#prompt
   }
 }
 
+@keyframes text-wiggle-prompt-status {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  text-shadow: -0.25vmax -0.25vmax 0.8px var(--bright);
+  }
+  75% {
+  }
+  100% {
+  text-shadow: 0.3vmax 0.3vmax 0.8px var(--bright);  
+  }
+}
+
 p.character#prompt {
   animation: text-wiggle-prompt;
   animation-duration: 8s;
@@ -467,6 +509,14 @@ p.character#prompt {
   animation-timing-function: ease;
   animation-direction: alternate;
 }
+
+/* div.status p.character#prompt {
+  animation: text-wiggle-prompt-status;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  animation-direction: alternate;
+} */
 
 /* 
 ====================

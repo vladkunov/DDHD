@@ -28,12 +28,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.67082694"
-     inkscape:cx="491.18481"
-     inkscape:cy="377.8918"
-     inkscape:window-width="1624"
-     inkscape:window-height="994"
-     inkscape:window-x="61"
-     inkscape:window-y="25"
+     inkscape:cx="526.2162"
+     inkscape:cy="464.35225"
+     inkscape:window-width="1680"
+     inkscape:window-height="1050"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg"
      showgrid="true">
@@ -47,7 +47,7 @@
        empcolor="#0099e5"
        empopacity="0.30196078"
        color="#0099e5"
-       opacity="0.14901961"
+       opacity="0.14902"
        empspacing="5"
        dotted="false"
        gridanglex="30"
@@ -66,7 +66,7 @@
   </g>
   <g
      id="g3"
-     transform="translate(0.69686414)">
+     transform="translate(0.52264811)">
     <g
        class="svg-group-clickable"
        transform="rotate(-60,23.587087,25.315369)"

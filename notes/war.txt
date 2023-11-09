@@ -1,23 +1,4 @@
-[ENG]
-
-How diplomacy and war work:
-
-Each foreign country has 4 statuses:
-
-- State (war or peace or occupation)
-- Diplomatic Capital (influence)
-- Number of provocations / 3
-      - War is possible if there are three or more of them
-- Economy
-      - Depending on the specifics of the country, it is added to the Army every year.
-
-- Hidden: Army
-      - If a resource is depleted, the country is occupied by the one it is at war with
-      - These statistics can only be obtained in special cases.
-
 Как работает дипломатия и война:
-
-[RUS]
 
 Каждая чужая страна имеет 4 стата:
 
