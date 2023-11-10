@@ -116,6 +116,7 @@ div.status p.character{
 div.war p.character{
   /* text-shadow: 0.3vmax 0.2vmax 0.8px var(--bright); */
   color: var(--highlight-one);
+  /* font-style: italic; */
 }
 
 .promptContainer {
@@ -128,7 +129,11 @@ p#characterDesc {
   /* margin: 1vh; */
   margin-bottom: 0vh;
   margin-top: 0vh;
-  text-align: justify;
+  /* text-align: justify; */
+}
+
+div.war p#characterDesc {
+  /* font-style: italic; */
 }
 
 button.character {
