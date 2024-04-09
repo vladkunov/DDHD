@@ -28,12 +28,14 @@
   --back-text-half: rgba(255, 255, 0, 0.571);
   --back-gen: rgba(12, 15, 10, 1);
   --highlight-one: rgba(255, 32, 110, 1);
+  --red: rgb(255, 32, 54);
   --highlight-two: rgba(65, 234, 212, 1);
   --bright: rgb(128, 145, 255);
   --jet: rgb(42, 43, 42);
   --rich: rgb(13, 24, 33);
   --onyx: rgb(52, 62, 61);
   --onyx-grey: rgba(52, 62, 61, 0.487);
+  --onyx-light: rgb(107, 124, 123);
 }
 
 /* 
@@ -65,6 +67,14 @@ body {
 
 .hidden {
   display: none;
+}
+
+.answerHiglightPlus {
+  color: var(--back-text-half);
+}
+
+.answerHiglightMinus {
+  color: var(--onyx-light);
 }
 
 div.buttonsContainer {
@@ -153,6 +163,11 @@ button.character {
   color: var(--highlight-two);
   outline: none;
   box-shadow: none;
+}
+
+button.character.greyed {
+  color: var(--onyx);
+  text-shadow: 0.15vmax 0.1vmax 0.3px var(--onyx-grey);
 }
 
 button.character:empty {
