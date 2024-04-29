@@ -483,6 +483,8 @@ div.war .scalablePath.second-ottenok {
   /* Blue */
   stroke: var(--highlight-two);
   fill: var(--highlight-two);
+  /* stroke: var(--back-text); */
+  /* fill: var(--back-text); */
 }
 
 
