@@ -91,6 +91,8 @@ img.character {
   width: 40vw;
   max-width: max(50vh);
   margin: 1vh 0vw 0vh -1vw;
+  position: relative;
+  left: 2vmin;
 }
 
 body.game svg {
@@ -387,40 +389,46 @@ Styles for charFace
 
 @keyframes face-wiggle {
   0% {
+    /* left: 2vmin; */
   }
   25% {
+    /* left: 2vmin; */
   }
   50% {
-    left: -2vmin;
-    top: -1vmin;
+    left: 0vmin;
+    top: -1.2vmin;
     z-index: -1;
   }
   75% {
+    /* left: 2vmin; */
     display: none;
   }
   100% {
-    left: 2vmin;
-    top: 1vmin;
+    left: 4vmin;
+    top: 1.2vmin;
     z-index: -2;
   }
 }
 
 @keyframes face-wiggle-alt {
   0% {
+    /* left: 2vmin; */
   }
   25% {
+    /* left: 2vmin; */
   }
   50% {
-    left: 2vmin;
-    top: 1vmin;
+    left: 4vmin;
+    top: 1.2vmin;
     z-index: -1;
   }
   75% {
+    /* left: 2vmin; */
     display: none;
   }
   100% {
-    left: -2vmin;
-    top: -1vmin;
+    left: 0vmin;
+    top: -1.2vmin;
     z-index: -2;
   }
 }
@@ -442,13 +450,14 @@ Styles for charFace
   stroke: var(--highlight-one);
   fill: var(--highlight-one);
 
-  left: 0;
+  left: 2vmin;
   right: 0;
   top: 0;
   bottom: 0;
 
   animation: face-wiggle;
-  animation-duration: 8s;
+  animation-duration: 10s;
+  /* animation-delay: 5s; */
   animation-timing-function: ease;
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -463,7 +472,8 @@ Styles for charFace
 
 .charFace svg.svg-second-ottenok{
   animation: face-wiggle-alt;
-  animation-duration: 8s;
+  animation-duration: 10s;
+  /* animation-delay: 5s; */
   animation-iteration-count: infinite;
   animation-timing-function: ease;
   animation-direction: alternate;
