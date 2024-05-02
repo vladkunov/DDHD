@@ -78,9 +78,9 @@ body {
 }
 
 div.buttonsContainer {
-  /* display: block; */
-  /* height: 24vmax; */
+  position: relative;
   width: 100%;
+  /* left: 2vh; */
 }
 
 div.flexible {
@@ -90,13 +90,13 @@ div.flexible {
 img.character {
   width: 40vw;
   max-width: max(50vh);
-  margin: 1vh 0vw 0vh -1vw;
-  position: relative;
-  left: 2vmin;
+  margin: 1vh 0vw 0vh 0vw;
+  /* position: relative; */
+  /* left: -2vmin; */
 }
 
 body.game svg {
-  margin: 1vh 0vw 0vh -1vw;
+  margin: 1vh 0vw 0vh 0vw;
   width: 40vw;
   max-width: max(50vh);
 }
@@ -135,6 +135,12 @@ div.war p.character{
   display: flex;
 }
 
+div#charTextAll {
+  position: relative;
+  left: -4vmin;
+  width: 100vw;
+}
+
 p#characterDesc {
   font-size: clamp(2vh, 2vw, 4vmin);
   color: var(--bright);
@@ -156,7 +162,7 @@ button.character {
   font-size: clamp(1vmax, 3vmax, 5vh);
   background-color: transparent;
   /* padding-bottom: 0.5vmax; */
-  padding-left: 1vmax;
+  /* padding-left: 3vmax; */
   /* margin-left: -0.5vmax; */
   line-height: 2vmax;
   padding-top: 0.5vmax;
@@ -174,11 +180,6 @@ button.character.greyed {
 
 button.character:empty {
   padding: 0;
-}
-
-.buttonsContainer {
-  /* display: flex; */
-  flex-direction: column;
 }
 
 button.character.active {
@@ -312,8 +313,8 @@ body.mobile div.buttonsContainer.mobileOnly button {
     display: block;
     clear: left;
     width: 100%;
-    line-height: 2.5vmax;
-    font-size: clamp(1vmax, 3.5vmax, 6vh);
+    line-height: 3vmax;
+    font-size: clamp(1.5vmax, 4vmax, 12vh);
 }
 
 body.mobile div.column {
@@ -321,6 +322,10 @@ body.mobile div.column {
   flex-basis: 42%;
   /* color: aliceblue; */
   padding: 1vh 1vh clamp(1vw, 9vh, 10vh) 1vh;
+}
+
+body.mobile div#charTextAll {
+  width: 97vw;
 }
 
 body.mobile.game img {
@@ -338,6 +343,9 @@ body.mobile div.promptAndChar {
   justify-content: center;
   flex-wrap: nowrap;
   flex-direction: column;
+}
+
+body.mobile button.character {
 }
 
 body.mobile div.promptContainer {
@@ -360,6 +368,9 @@ body.mobile.game p#prompt {
   text-align: center;
 }
 
+body.mobile .charFace {
+  right: 0vw;
+}
 
 body.mobile p#characterDesc {
   text-align: center;
@@ -374,7 +385,7 @@ body.mobile p#history.character {
 /* If not mobile */
 
 body div.buttonsContainer.notMobile button {
-    display: block;
+  display: block;
 }
 
 body div.buttonsContainer.mobileOnly button {
@@ -395,7 +406,7 @@ Styles for charFace
     /* left: 2vmin; */
   }
   50% {
-    left: 0vmin;
+    left: -2vmin;
     top: -1.2vmin;
     z-index: -1;
   }
@@ -404,7 +415,7 @@ Styles for charFace
     display: none;
   }
   100% {
-    left: 4vmin;
+    left: 2vmin;
     top: 1.2vmin;
     z-index: -2;
   }
@@ -418,7 +429,7 @@ Styles for charFace
     /* left: 2vmin; */
   }
   50% {
-    left: 4vmin;
+    left: 2vmin;
     top: 1.2vmin;
     z-index: -1;
   }
@@ -427,7 +438,7 @@ Styles for charFace
     display: none;
   }
   100% {
-    left: 0vmin;
+    left: -2vmin;
     top: -1.2vmin;
     z-index: -2;
   }
@@ -435,6 +446,7 @@ Styles for charFace
 
 .charFace {
   position: relative;
+  right: 1vw;
   float: left;
 }
 
@@ -450,7 +462,7 @@ Styles for charFace
   stroke: var(--highlight-one);
   fill: var(--highlight-one);
 
-  left: 2vmin;
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
